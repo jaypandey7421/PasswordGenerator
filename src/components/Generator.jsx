@@ -5,6 +5,7 @@ export default function Generator() {
     const [includeNumber, setIncludeNumber] = useState(false);
     const [includeSym, setIncludeSym] = useState(false);
     const [length, setLength] = useState(8);
+    const [copyBtn, setCopyBtn] = useState('Copy');
 
     const inputTextRef = useRef('');
 
@@ -12,7 +13,7 @@ export default function Generator() {
         let newPassword = '';
         let tempString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         if(includeNumber) tempString += '0123456789';
-        if(includeSym) tempString+= '@#$*()';
+        if(includeSym) tempString+= '@#$*()^!%&';
 
         for(let i=0; i<length; i++){
             newPassword += tempString.charAt(Math.floor((Math.random() * tempString.length) + 1));
@@ -24,6 +25,10 @@ export default function Generator() {
     function copyPasswordToClipboard(){
         inputTextRef.current?.select();
         window.navigator.clipboard.writeText(password);
+        setCopyBtn('Copied');
+        setTimeout(() => {
+            setCopyBtn("Copy")
+        }, 1000);
         console.log('Password coppied.');
     }
 
@@ -34,16 +39,16 @@ export default function Generator() {
     },[length, includeNumber, includeSym]);
 
   return (
-    <div className='generatorContainer'>
+    <div className='generator-container'>
         <h1>Password Generator</h1>
         <div className='input-group'>
             <input type="text" value={password} placeholder='password'  readOnly ref={inputTextRef} />
             <button onClick={copyPasswordToClipboard} className='btn-copy'>
-                copy
+                {copyBtn}
             </button>
                 
         </div>
-        <div>
+        <div className='labels'>
             <label>
                 <input type="range" min={6} max={25} value={length} onChange={(e) => {setLength(e.target.value); }} />
                 Length: {length}

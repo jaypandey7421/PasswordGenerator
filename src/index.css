@@ -13,11 +13,21 @@ body{
   font-style: normal;
 }
 
-/* .input-group {
+#root{
   display: flex;
+  justify-content: center;
   align-items: center;
-} */
+  height: 100vh;
+}
 
+.generator-container{
+  background-color: #1b426986;
+  padding:  0 50px;
+}
+
+.labels{
+  margin-top: 1em;
+}
 input[type = text] {
   min-height: 50px;
   max-width: 200px;
@@ -31,6 +41,7 @@ input[type = text] {
 
 .btn-copy {
   min-height: 50px;
+  width: 80px;
   padding: 1rem 1em;
   border: none;
   border-radius: 0 6px 6px 0;
